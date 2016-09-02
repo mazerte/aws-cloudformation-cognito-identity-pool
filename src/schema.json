@@ -1,0 +1,72 @@
+{
+  "type": "object",
+  "required": [
+    "IdentityPoolName",
+    "AllowUnauthenticatedIdentities"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "IdentityPoolName": {
+      "type": "string",
+      "pattern": "[\\w\\d\\s+=,\\.@-]{1,128}"
+    },
+    "AllowUnauthenticatedIdentities": {
+      "type": "string",
+      "enum": ["true", "false"]
+    },
+    "DeveloperProviderName": {
+      "type": "string",
+      "pattern": "[\\w.-]+"
+    },
+    "CognitoIdentityProviders": {
+      "type": "array",
+      "item": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ClientId": {
+            "type": "string",
+            "pattern": "(\\w+-\\w+-\\d+)_.*"
+          },
+          "ProviderName": {
+            "type": "string",
+            "pattern": "cognito-idp.(\\w+-\\w+-\\d+).amazonaws.com/(\\w+-\\w+-\\d+)_.*"
+          }
+        }
+      }
+    },
+    "OpenIdConnectProviderARNs": {
+      "type": "array",
+      "item": {
+        "type": "string"
+      }
+    },
+    "SamlProviderARNs": {
+      "type": "array",
+      "item": {
+        "type": "string"
+      }
+    },
+    "SupportedLoginProviders": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "graph.facebook.com":  {
+          "type": "string"
+        },
+        "accounts.google.com":  {
+          "type": "string"
+        },
+        "www.amazon.com":  {
+          "type": "string"
+        },
+        "api.twitter.com":  {
+          "type": "string"
+        },
+        "www.digits.com":  {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

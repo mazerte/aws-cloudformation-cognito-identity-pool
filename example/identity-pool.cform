@@ -1,0 +1,40 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Example of Cognito IdentityPool",
+    "Metadata": {
+
+    },
+    "Parameters": {
+      "CognitoIdentityPoolLambdaName": {
+          "Description": "CognitoIdentityPool lambda name",
+          "Type": "String"
+      }
+    },
+    "Mappings": {
+
+    },
+    "Conditions": {
+
+    },
+    "Resources": {
+
+      "MyIdentityPool": {
+         "Type": "Custom::CognitoIdentityPool",
+         "Version": "1.0",
+         "Properties": {
+            "ServiceToken": {"Fn::Join" : [":",[ "arn:aws:lambda", { "Ref": "AWS::Region" }, { "Ref": "AWS::AccountId" }, "function", { "Ref": "CognitoIdentityPoolLambdaName" } ] ]},
+            "IdentityPoolName": "MyIdentityPool",
+            "AllowUnauthenticatedIdentities": "true",
+            "DeveloperProviderName": "MyDeveloper",
+            "SupportedLoginProviders": {
+              "graph.facebook.com": "123456789012345"
+            }
+         }
+      }
+    },
+    "Outputs": {
+      "MyUserPoolId": {
+        "Value": { "Ref": "MyIdentityPool" }
+      }
+    }
+}
